@@ -1,4 +1,4 @@
-### 🏦 Toy Exchange API
+# 🏦 Toy Exchange API
 
 This is a simplified stock exchange backend built using FastAPI, created as an educational project inspired by real-world financial markets. The platform allows users to register, manage their balances, and place buy/sell orders, supporting both market and limit types.
 
@@ -61,5 +61,4 @@ To run with Docker:
 
 docker build -t toy-exchange .
 docker run -p 8000:8000 toy-exchange
------------------
 thx
