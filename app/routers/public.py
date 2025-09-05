@@ -1,3 +1,4 @@
+# app/routers/public.py
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from .. import models, schemas
@@ -12,9 +13,8 @@ def register(body: schemas.NewUser, db: Session = Depends(get_db)):
     api_key = f"key-{uuid.uuid4()}"
     user = models.User(name=body.name, api_key=api_key)
     db.add(user)
-    # initial balance example: give user some DODGE
+    # initial balance example: give user some RUB
     db.flush()
-    # create default balance (RUB)
     bal = models.Balance(user_id=user.id, ticker="RUB", amount=100000)
     db.add(bal)
     db.commit()
@@ -30,7 +30,7 @@ def get_orderbook(ticker: str, limit: int = 10, db: Session = Depends(get_db)):
     from ..matching import get_orderbook_levels
     return get_orderbook_levels(db, ticker, limit=limit)
 
-@router.get("/transactions/{ticker}", response_model=list[schemas.Transaction] | list)
+@router.get("/transactions/{ticker}", response_model=list[schemas.TransactionOut])
 def get_transactions(ticker: str, limit: int = 10, db: Session = Depends(get_db)):
     txs = db.query(models.Transaction).filter(models.Transaction.ticker==ticker).order_by(models.Transaction.timestamp.desc()).limit(limit).all()
-    return [{"ticker": t.ticker, "amount": t.amount, "price": t.price, "timestamp": t.timestamp.isoformat()} for t in txs]
+    return [{"id": t.id, "ticker": t.ticker, "amount": t.amount, "price": t.price, "timestamp": t.timestamp.isoformat() if t.timestamp else None} for t in txs]

@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+db:
+image: postgres:15
+environment:
+POSTGRES_USER: toy
+POSTGRES_PASSWORD: toy
+POSTGRES_DB: toy_exchange
+volumes:
+- db_data:/var/lib/postgresql/data
+ports:
+- "5432:5432"
+
+
+api:
+build: .
+command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+volumes:
+- .:/app
+ports:
+- "8000:8000"
+environment:
+DATABASE_URL: postgresql+psycopg2://toy:toy@db:5432/toy_exchange
+ADMIN_API_KEY: ${ADMIN_API_KEY:-admin-token-change-me}
+depends_on:
+- db
+
+
+volumes:
+db_data:
