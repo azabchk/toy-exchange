@@ -1,8 +1,8 @@
-🏦 Toy Exchange API
+### 🏦 Toy Exchange API
 
 This is a simplified stock exchange backend built using FastAPI, created as an educational project inspired by real-world financial markets. The platform allows users to register, manage their balances, and place buy/sell orders, supporting both market and limit types.
 
-🚀 Key Features
+## 🚀 Key Features
 
 User API:
 
@@ -36,7 +36,7 @@ Uvicorn as the ASGI server
 
 Docker support for containerization
 
-📦 Installation Guide
+## 📦 Installation Guide
 
 To run locally:
 
@@ -61,29 +61,5 @@ To run with Docker:
 
 docker build -t toy-exchange .
 docker run -p 8000:8000 toy-exchange
-
-📂 Project Structure
-toy-exchange/
-├── app/
-│   ├── __init__.py
-│   ├── main.py
-│   ├── database.py
-│   ├── models.py
-│   ├── schemas.py
-│   ├── auth.py
-│   ├── matching.py
-│   └── routers/
-│       ├── __init__.py
-│       ├── public.py
-│       ├── balance.py
-│       ├── order.py
-│       └── admin.py
-├── requirements.txt
-├── Dockerfile
-├── .env.example
-├── README.md
-└── run.sh
-
-📜 License
-
-This project is licensed under the MIT License © 2025 YOUR_NAME
+-----------------
+thx
